@@ -24,18 +24,16 @@ ex ()
   fi
 }
 
-export EDITOR=vim
+export EDITOR=nvim
 
 alias pacman-update='sudo pacman-mirrors --geoip'
 
-alias ls='ls'
-alias ll='ls -l'
+alias ls='ls --color=auto'
+alias ll='ls -lFH'
 # ls, the common ones I use a lot shortened for rapid fire usage
-alias l='ls -lFh'     #size,show type,human readable
-alias la='ls -lAFh'   #long list,show almost all,show type,human readable
+alias lla='ls -lAFh'   #long list,show almost all,show type,human readable
 alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
 alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
-alias ll='ls -l'      #long list
 alias ldot='ls -ld .*'
 alias lS='ls -1FSsh'
 alias lart='ls -1Fcart'
@@ -75,22 +73,41 @@ alias unexport='unset'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias vim='vim'
-alias vi='vim'
-alias gds-start='sudo systemctl start openvpn-client@gds'
-alias gds-stop='sudo systemctl stop openvpn-client@gds'
-gitpush() {
-    git add .
-    git commit -m "$*"
-    git pull
-    git push
-}
-gitupdate() {
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/github
-    ssh -T git@github.com
-}
-alias gp=gitpush
-alias gu=gitupdate
-alias lbrynet='/opt/LBRY/resources/static/daemon/lbrynet'
+alias vim='nvim'
+alias vi='nvim'
+
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias py='python3'
+alias sdn='shutdown -h now'
+alias va='virtualenv_activate'
+alias tp='top_process'
+alias killport='kill_port'
+alias ip='ip -color=auto'
+alias ..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+alias yt='youtube-dl -f bestvideo+bestaudio'
+alias bat='batcat'
+
+wtfis(){
+	curl "cheat.sh/$1"
+}
+kill_port()
+{
+	kill -9 $(lsof -t -i:$1)
+}
+
+top_process()
+{
+  #mem -> sorted by memory usage
+  #cpu -> sorted by cpu usage
+  ps -eo pid,user,ppid,cmd,%mem,%cpu --sort=-%$1 | head
+}
+virtualenv_activate()
+{
+  source /home/volkan/Environments/$1/bin/activate
+}
+
